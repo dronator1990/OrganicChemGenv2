@@ -23,6 +23,7 @@ namespace OrganicChemGen
 
             int max_carbon_count = Convert.ToInt32(ConfigurationManager.AppSettings.Get("max_carbon_count"));
             bool more_triple_bonds = Convert.ToBoolean(ConfigurationManager.AppSettings.Get("more_triple_bonds"));
+            bool multiple_bonds = Convert.ToBoolean(ConfigurationManager.AppSettings.Get("multiple_bonds"));
 
             string[] components_l = { "NH2", "NO2", " OH", " Br", "  F", "  I", " Cl", "   " };
             string[] components_r = { "NH2", "NO2", "OH", "Br", "F", "I", "Cl", "" };
@@ -43,7 +44,9 @@ namespace OrganicChemGen
                 else { c2 = c;}
                 for (int i = 1; i < c2/2; i++)
                 {
-                    int bonds = rnd.Next(1, 4);
+                    int bonds = 1;
+                    if (multiple_bonds==true) {bonds = rnd.Next(1, 4); }
+                    
                     if (bonds == 1)
                     {
                         Console.WriteLine($"{components_l[rnd.Next(components_l.Length)]} — C — {components_r[rnd.Next(components_r.Length)]}\n      |");
